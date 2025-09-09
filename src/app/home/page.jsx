@@ -1,14 +1,11 @@
-// Corrected Home component with imported Navbar
-import Image from 'next/image'
-import Link from 'next/link'
-import Navbar from '../components/navbar'; // Import your Navbar component
+import Image from 'next/image';
+import Link from 'next/link';
+import Navbar from '../components/navbar';
+import Footer from '../components/footer'; // Import the Footer component
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      {/* This is where your Navbar component goes.
-        Replace the old <nav> element with <Navbar />
-      */}
+    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col">
       <Navbar />
 
       {/* Hero Section */}
@@ -36,7 +33,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white flex-grow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Features</h2>
@@ -72,13 +69,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p>&copy; 2024 MyApp. Built with Next.js and Tailwind CSS.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
-  )
+  );
 }
