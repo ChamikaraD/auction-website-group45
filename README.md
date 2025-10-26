@@ -80,8 +80,6 @@ Log in with these credentials to access the **ADMIN** section.
 
 ---
 
-## Contribution 🤝
 
-This project was developed collaboratively by a team of 8 members as part of [Mention Course/Project Context if applicable]. Each member contributed to different aspects of the frontend and backend development.
 
-*(Optional: You can add a brief list of team members here if desired)*
+
