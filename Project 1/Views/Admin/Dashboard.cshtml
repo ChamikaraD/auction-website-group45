@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-5 text-light">
+    <h2 class="text-center mt-4 mb-5" style="font-family: 'Playfair Display', serif; color: #D4AF37;">Admin Dashboard</h2>
+
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card text-center text-light p-3" style="background-color: #1E1E1E; border: 1px solid #333;">
+                <h4 style="color: #D4AF37;">Users</h4>
+                <a href="@Url.Action("Users", "Admin")" class="btn btn-secondary-dark">Manage Users</a>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card text-center text-light p-3" style="background-color: #1E1E1E; border: 1px solid #333;">
+                <h4 style="color: #D4AF37;">Listings</h4>
+                <a href="@Url.Action("Listings", "Admin")" class="btn btn-secondary-dark">Manage Listings</a>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card text-center text-light p-3" style="background-color: #1E1E1E; border: 1px solid #333;">
+                <h4 style="color: #D4AF37;">Bids</h4>
+                <a href="@Url.Action("Bids", "Admin")" class="btn btn-secondary-dark">Manage Bids</a>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card text-center text-light p-3" style="background-color: #1E1E1E; border: 1px solid #333;">
+                <h4 style="color: #D4AF37;">Payments</h4>
+                <a href="@Url.Action("Payments", "Admin")" class="btn btn-secondary-dark">View Payments</a>
+            </div>
+        </div>
+    </div>
+</div>

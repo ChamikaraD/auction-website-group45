@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<link rel="stylesheet" href="~/css/contactus.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/custom-auth.css" asp-append-version="true" />
+
+
+<div class="contact-us-container">
+
+    <section class="contact-header">
+        <h1 class="page-title">Get In Touch</h1>
+        <p>We'd love to hear from you. Reach out with any questions or inquiries.</p>
+    </section>
+
+    <section class="contact-grid">
+
+        <div class="contact-info">
+            <h2 class="section-title">Contact Information</h2>
+            <p>Feel free to reach out via email, phone, or visit us.</p>
+
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <strong>Address:</strong><br>
+                    123 Coin Street, Colombo,<br>
+                    Sri Lanka
+                </div>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <strong>Email:</strong><br>
+                    <a href="mailto:info@numislive.example">info@numislive.example</a>
+                </div>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-phone-alt"></i>
+                <div>
+                    <strong>Phone:</strong><br>
+                    +94 11 234 5678
+                </div>
+            </div>
+
+        </div>
+
+        <div class="contact-form-panel">
+            <h2 class="section-title">Send Us a Message</h2>
+            <form method="post" asp-controller="Home" asp-action="ContactUs">
+                @Html.AntiForgeryToken() <div class="form-group">
+                    <label for="Name">Name</label>
+                    <input type="text" id="Name" name="Name" class="form-control-custom" placeholder="Your Name" required />
+                </div>
+                <div class="form-group">
+                    <label for="Email">Email</label>
+                    <input type="email" id="Email" name="Email" class="form-control-custom" placeholder="Your Email Address" required />
+                </div>
+                <div class="form-group">
+                    <label for="Subject">Subject</label>
+                    <input type="text" id="Subject" name="Subject" class="form-control-custom" placeholder="Message Subject" required />
+                </div>
+                <div class="form-group">
+                    <label for="Message">Message</label>
+                    <textarea id="Message" name="Message" class="form-control-custom" rows="5" placeholder="Your message here..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit-gold">Send Message</button>
+            </form>
+        </div>
+
+    </section>
+
+</div>

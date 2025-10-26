@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Payment Confirmation";
+}
+
+<link rel="stylesheet" href="~/css/custom-auth.css" asp-append-version="true" />
+
+<div class.confirm-container">
+    <div class="auth-form-panel" style="margin: 5vh auto; max-width: 800px;">
+        <div class="form-content text-center">
+            <div class="form-header">
+                <h2 style="color: #D4AF37;">Payment Successful!</h2>
+                <p class="lead" style="color: #ccc;">Thank you for your purchase.</p>
+            </div>
+
+            <p style="font-size: 1.1rem; color: #f0f0f0;">
+                You can now view your purchased item in your listings.
+            </p>
+
+            <a asp-controller="Listings" asp-action="MyListings" class="btn-primary-gold" style="text-decoration: none; margin-top: 20px;">Go to My Listings</a> [cite: 23]
+        </div>
+    </div>
+</div>

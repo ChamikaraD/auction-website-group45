@@ -1,0 +1,49 @@
+﻿@model Project_1.Models.Listing
+
+@{
+    ViewData["Title"] = "Delete Listing";
+}
+
+<link rel="stylesheet" href="~/css/custom-auth.css" asp-append-version="true" />
+
+<div class.delete-container">
+    <div class="auth-form-panel" style="margin: 5vh auto; max-width: 800px;">
+        <div class="form-content">
+            <div class="form-header">
+                <h2>Delete Listing</h2>
+                <p>Are you sure you want to permanently delete this item?</p>
+            </div>
+
+            <div class="delete-details">
+                <h4 style="color: #D4AF37;">@Html.DisplayFor(model => model.Title)</h4> 
+                <p>@Html.DisplayFor(model => model.Description)</p> 
+
+                <dl>
+                    <dt>Year</dt>
+                    <dd>@Html.DisplayFor(model => model.Year)</dd>
+
+                    <dt>Country</dt>
+                    <dd>@Html.DisplayFor(model => model.Country)</dd>
+
+                    <dt>Grade</dt>
+                    <dd>@Html.DisplayFor(model => model.Grade)</dd>
+
+                    <dt>Starting Price</dt>
+                    <dd>Rs @Html.DisplayFor(model => model.Price)</dd> 
+                </dl>
+
+                @if (!string.IsNullOrEmpty(Model.ImagePath))
+                {
+                    <img src="~/Images/@Model.ImagePath" alt="@Model.Title" style="max-width:200px; border-radius:5px; margin-bottom: 20px;" [cite_start] />
+                    
+                                }
+            </div>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn-submit" style="background-color: #a83232; color: white;">Yes, Delete This Listing</button>
+                <a asp-action="Index" class="btn btn-secondary-dark" style="width: 100%; text-align:center; margin-top: 15px; padding: 12px;">Cancel</a> [cite: 30]
+            </form>
+        </div>
+    </div>
+</div>

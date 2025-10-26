@@ -1,0 +1,120 @@
+﻿@model PaginatedList<Project_1.Models.Listing>
+
+@{
+    ViewData["Title"] = "Browse Coins"; // Changed title
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4" style="font-family: 'Playfair Display', serif; color: #D4AF37; text-transform: uppercase;">Browse Coins</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="no-auctions-message text-center">
+            <p>There are no active auctions right now. Check back soon!</p>
+        </div>
+    }
+    else
+    {
+        <div class="auction-grid">
+            @foreach (var listing in Model)
+            {
+                var highestBid = listing.Bids?.OrderByDescending(b => b.Price).FirstOrDefault();
+                var currentPrice = highestBid?.Price ?? listing.Price;
+
+                <div class="auction-card">
+                    <div class="card-image">
+                        <img src="~/Images/@listing.ImagePath" alt="@listing.Title" />
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">@listing.Title</h3>
+
+                        @if (listing.IsSold)
+                        {
+                            var winningBid = listing.Bids?.OrderByDescending(b => b.Price).FirstOrDefault(); // winningBid is fine, different name
+                            if (winningBid != null)
+                            {
+                                <p class="card-bid-label" style="color: #a83232;">SOLD FOR</p>
+                                <p class="card-bid-price" style="color: #a83232;">Rs @winningBid.Price.ToString("N2")</p>
+                            }
+                            else
+                            {
+                                <p class="card-bid-label" style="color: #aaa;">CLOSED (Not Sold)</p>
+                                <p class="card-bid-price" style="color: #aaa;">-</p>
+                            }
+                        }
+                        else
+                        {
+                            // --- REMOVE duplicate declarations from here ---
+                            // var highestBid = listing.Bids?.OrderByDescending(b => b.Price).FirstOrDefault(); // DELETE THIS LINE
+                            // var currentPrice = highestBid?.Price ?? listing.Price; // DELETE THIS LINE
+                            // --- Use the variables declared above the 'if' ---
+                            <p class="card-bid-label">@(highestBid == null ? "Starting Bid" : "Current Bid")</p>
+                            <p class="card-bid-price">Rs @currentPrice.ToString("N2")</p>
+                        }
+
+                        <p class="card-timer">
+                            @if (listing.IsSold)
+                            {
+                                <span style="color: #aaa;">Auction Ended</span>
+                            }
+                            else
+                            {
+                                <span id="timer-@listing.Id"
+                                      data-closing-time="@listing.ClosingTime.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")"
+                                      style="color: #f0f0f0;">
+                                    Loading...
+                                </span>
+                            }
+                        </p>
+
+                        <a asp-action="Details" asp-route-id="@listing.Id" class="btn btn-secondary-gold">View Details</a>
+                    </div>
+                </div>
+            }
+            
+        </div>
+    }
+
+    <div class="pagination-container mt-4">
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+        <a asp-action="Browse" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-secondary-dark @prevDisabled">Previous</a>
+        <span class="pagination-page-info">Page @Model.PageIndex of @Model.TotalPages</span>
+        <a asp-action="Browse" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-secondary-dark @nextDisabled">Next</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // (Same timer script as Index.cshtml)
+        document.querySelectorAll("[id^='timer-']").forEach(timer => {
+            const closingTime = new Date(timer.dataset.closingTime);
+            function updateTimer() {
+                const now = new Date();
+                const diff = closingTime - now;
+
+                if (diff <= 0) {
+                    timer.textContent = "Bidding Closed";
+                    timer.style.color = "#D4AF37";
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                if (days > 0) {
+                     timer.textContent = `${days}d ${hours}h ${minutes}m`;
+                } else {
+                     timer.textContent = `${hours}h ${minutes}m ${seconds}s`;
+                }
+                timer.style.color = "#f0f0f0";
+            }
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        });
+    </script>
+}

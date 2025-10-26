@@ -1,0 +1,147 @@
+﻿@model List<Project_1.Models.Listing>
+@{
+    ViewData["Title"] = "Home";
+}
+
+<link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+
+<div class="homepage-container">
+
+    <section class="hero-section">
+        <h1>LIVE COIN AUCTIONS</h1>
+        <p>Bid on rare historical coins. Buy or Sell Coins.</p>
+        <div class="hero-buttons">
+            <a asp-controller="Listings" asp-action="Index" class="btn btn-primary-gold">JOIN LIVE AUCTION</a>
+            <a asp-controller="Listings" asp-action="Create" class="btn btn-secondary-dark">SELL YOUR COINS</a>
+        </div>
+    </section>
+
+    <section class="featured-auctions">
+        <h2>FEATURED AUCTIONS</h2>
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="auction-grid">
+                @foreach (var listing in Model)
+                {
+                    var highestBid = listing.Bids?.OrderByDescending(b => b.Price).FirstOrDefault();
+                    var currentPrice = highestBid?.Price ?? listing.Price;
+
+                    <div class="auction-card">
+                        <div class="card-image">
+                            <img src="~/Images/@listing.ImagePath" alt="@listing.Title" />
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">@listing.Title</h3>
+                            <p class="card-bid-label">Current Bid</p>
+                            <p class="card-bid-price">$ @currentPrice.ToString("N2")</p>
+
+                            <p class="card-timer">
+                                <span id="timer-@listing.Id"
+                                      data-closing-time="@listing.ClosingTime.ToString("o")">
+                                    @(listing.IsSold ? "Bidding Closed" : "Loading...")
+                                </span>
+                            </p>
+
+                            <a href="/Listings/Details/@listing.Id" class="btn btn-secondary-gold">View Auction</a>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="view-more-link">
+                <a href="/Listings" class="btn btn-primary-gold">View More</a>
+            </div>
+        }
+        else
+        {
+            <p class="no-auctions-message">No active auctions available right now. Check back soon!</p>
+        }
+    </section>
+
+
+    <section class="sell-section">
+        <div class="sell-image-box">
+            <img src="~/Images/coin-display-box.png" alt="Coin Display Box" />
+        </div>
+        <div class="sell-content">
+            <h2>TURN YOUR COLLECTIONS <br> IN TO CASH</h2>
+            <p>Sell With NumisLive Today</p>
+            <a href="#" class="btn btn-secondary-gold">LIST YOUR COIN</a>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>NumisLive</h3>
+                <p>Where History Meets Value.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Aboutus">About Us</a></li>
+                    <li><a asp-controller="Home" asp-action="ContactUs">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Buyer & Seller Resources</h4>
+                <ul>
+                    <li><a href="#">Help & FAQs</a></li>
+                    <li><a href="#">Fees & Policies</a></li>
+                </ul>
+            </div>
+            <div class="footer-connect">
+                <h4>Stay Connected</h4>
+                <form class="subscribe-form" method="post" asp-controller="Home" asp-action="Subscribe">
+                    @Html.AntiForgeryToken() <input type="email" name="EmailAddress" placeholder="Email" required />
+                    <button type="submit" class="btn-subscribe">SUBSCRIBE</button>
+                </form>
+                <div class="social-icons">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright © @DateTime.Now.Year NumisLive. All rights reserved.</p>
+        </div>
+    </footer>
+
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll("[id^='timer-']").forEach(timer => {
+            const closingTime = new Date(timer.dataset.closingTime);
+
+            function updateTimer() {
+                const now = new Date();
+                const diff = closingTime - now;
+
+                if (diff <= 0) {
+                    timer.textContent = "Bidding Closed";
+                    timer.style.color = "#E0C568";
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                if (days > 0) {
+                     timer.textContent = `${days}d ${hours}h ${minutes}m`;
+                } else {
+                     timer.textContent = `${hours}h ${minutes}m ${seconds}s`;
+                }
+                timer.style.color = "#f0f0f0";
+            }
+
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        });
+    </script>
+}

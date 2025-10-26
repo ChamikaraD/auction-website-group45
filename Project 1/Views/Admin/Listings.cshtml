@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Project_1.Models.Listing>
+
+@{
+    ViewData["Title"] = "Manage Listings";
+}
+
+<div class="container mt-5 text-light">
+    <h2 class="mt-4 mb-3 text-center" style="font-family: 'Playfair Display', serif; color: #D4AF37;">Manage Listings</h2>
+
+    <table class="table table-dark table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Owner</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var listing in Model)
+            {
+                <tr>
+                    <td>@listing.Id</td>
+                    <td>@listing.Title</td>
+                    <td><span class="badge @(listing.Status == "Active" ? "bg-success" : (listing.Status == "Closed" ? "bg-warning text-dark" : "bg-secondary"))">@listing.Status</span></td>
+                    <td>@(listing.User?.Email ?? "N/A")</td>
+                    <td>
+                        <a asp-controller="Listings" asp-action="Details" asp-route-id="@listing.Id" class="btn btn-sm btn-info">View</a>
+
+                        <form asp-controller="Listings" asp-action="DeleteListing" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete listing @listing.Id?');">
+                            <input type="hidden" name="id" value="@listing.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            @* No need for AntiForgeryToken here if already in the form tag helper *@
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

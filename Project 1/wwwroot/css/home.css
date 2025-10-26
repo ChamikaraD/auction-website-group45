@@ -1,0 +1,688 @@
+﻿/* Import Google Fonts for the home page design */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #1a1a1a; /* Dark background for the entire page */
+    color: #f0f0f0; /* Light text color */
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #1a1a1a;
+    margin-bottom: 60px;
+}
+
+    .hero-section h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.5rem;
+        color: #D4AF37; /* Gold color */
+        margin-bottom: 15px;
+        text-transform: uppercase;
+    }
+
+    .hero-section p {
+        font-size: 1.2rem;
+        color: #ccc;
+        margin-bottom: 40px;
+    }
+
+.hero-buttons .btn {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    margin: 0 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-primary-gold {
+    background-color: #D4AF37; /* Gold color */
+    color: #1a1a1a;
+    border: none;
+}
+
+    .btn-primary-gold:hover {
+        background-color: #C09E31; /* Darker Gold */
+    }
+
+.btn-secondary-dark {
+    background-color: transparent;
+    color: #D4AF37; /* Gold color */
+    border: 1px solid #D4AF37; /* Gold color */
+}
+
+    .btn-secondary-dark:hover {
+        background-color: #D4AF37; /* Gold color */
+        color: #1a1a1a;
+    }
+
+
+/* --- "Turn your collections to cash" Section --- */
+.sell-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1E1E1E;
+    padding: 80px 40px;
+    margin-bottom: 60px;
+    border-radius: 8px;
+    gap: 40px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sell-image-box {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 450px; /* Adjusted max-width */
+}
+
+    .sell-image-box img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+.sell-content {
+    text-align: left;
+    max-width: 400px;
+}
+
+    .sell-content h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        color: #D4AF37; /* Gold color */
+        margin-bottom: 15px;
+        line-height: 1.2;
+        text-transform: uppercase;
+    }
+
+    .sell-content p {
+        font-size: 1.1rem;
+        color: #ccc;
+        margin-bottom: 30px;
+    }
+
+.btn-secondary-gold {
+    background-color: transparent;
+    color: #D4AF37; /* Gold color */
+    border: 1px solid #D4AF37; /* Gold color */
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .btn-secondary-gold:hover {
+        background-color: #D4AF37; /* Gold color */
+        color: #1a1a1a;
+    }
+
+/* --- Footer Section --- */
+.site-footer {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    padding: 60px 20px 20px;
+    border-top: 1px solid #333;
+}
+
+    .site-footer .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto 40px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #333;
+    }
+
+    .site-footer .footer-brand h3 {
+        font-family: 'Playfair Display', serif;
+        color: #D4AF37; /* Gold color */
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .site-footer .footer-brand p {
+        font-size: 0.9rem;
+        color: #bbb;
+    }
+
+    .site-footer .footer-links h4,
+    .site-footer .footer-connect h4 {
+        font-size: 1.1rem;
+        color: #D4AF37; /* Gold color */
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    .site-footer .footer-links ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .site-footer .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+            .site-footer .footer-links ul li a {
+                color: #f0f0f0;
+                text-decoration: none;
+                font-size: 0.95rem;
+                transition: color 0.3s;
+            }
+
+                .site-footer .footer-links ul li a:hover {
+                    color: #D4AF37; /* Gold color */
+                }
+
+    .site-footer .subscribe-form {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+        .site-footer .subscribe-form input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #555;
+            background-color: #3e3e3e;
+            color: #f0f0f0;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+            .site-footer .subscribe-form input::placeholder {
+                color: #bbb;
+            }
+
+    .site-footer .btn-subscribe {
+        background-color: #D4AF37; /* Gold color */
+        color: #1a1a1a;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+        font-weight: 700;
+        transition: background-color 0.3s;
+    }
+
+        .site-footer .btn-subscribe:hover {
+            background-color: #C09E31; /* Darker Gold */
+        }
+
+    .site-footer .social-icons {
+        display: flex;
+        gap: 15px;
+    }
+
+        .site-footer .social-icons a {
+            color: #f0f0f0;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+            .site-footer .social-icons a:hover {
+                color: #D4AF37; /* Gold color */
+            }
+
+    .site-footer .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        font-size: 0.85rem;
+        color: #bbb;
+    }
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+    .hero-section h1 {
+        font-size: 2.8rem;
+    }
+
+    .sell-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .sell-content {
+        max-width: none;
+    }
+
+    .site-footer .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+        .hero-buttons .btn {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+    .sell-section {
+        padding: 50px 20px;
+    }
+
+    .sell-content h2 {
+        font-size: 2rem;
+    }
+
+    .site-footer .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .site-footer .subscribe-form {
+        justify-content: center;
+    }
+
+    .site-footer .social-icons {
+        justify-content: center;
+    }
+}
+/* --- Featured Auctions Section --- */
+.featured-auctions {
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto 60px auto;
+}
+
+    .featured-auctions h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        color: #D4AF37; /* Gold color */
+        text-transform: uppercase;
+        margin-bottom: 40px;
+    }
+
+.auction-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.auction-card {
+    background-color: #1E1E1E;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: left;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .auction-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+
+    .auction-card .card-image {
+        width: 100%;
+        height: 250px; /* Fixed height for uniformity */
+        overflow: hidden;
+    }
+
+        .auction-card .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .auction-card .card-content {
+        padding: 25px;
+    }
+
+    .auction-card .card-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        color: #f0f0f0;
+        margin-bottom: 15px;
+    }
+
+    .auction-card .card-bid-label {
+        font-size: 0.9rem;
+        color: #ccc;
+        margin-bottom: 5px;
+    }
+
+    .auction-card .card-bid-price {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #D4AF37; /* Gold color */
+        margin-bottom: 15px;
+    }
+
+    .auction-card .card-timer {
+        font-size: 0.9rem;
+        color: #f0f0f0;
+        margin-bottom: 20px;
+    }
+
+    .auction-card .btn-secondary-gold {
+        width: 100%;
+        text-align: center;
+    }
+
+.view-more-link {
+    text-align: center;
+}
+
+.no-auctions-message {
+    font-size: 1.1rem;
+    color: #ccc;
+}
+
+/* Responsive Grid for Auctions */
+@media (max-width: 992px) {
+    .auction-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .auction-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Create Listing Page Styles --- */
+.create-listing-container .auth-form-panel {
+    max-width: 800px;
+    margin: 5vh auto;
+}
+
+.create-listing-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #ccc;
+}
+
+.create-listing-container .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.create-listing-container .duration-inputs {
+    display: flex;
+    gap: 20px;
+}
+
+    .create-listing-container .duration-inputs input {
+        width: 100%;
+    }
+
+.create-listing-container textarea.form-control-custom {
+    min-height: 120px;
+}
+
+/* Responsive for the create grid */
+@media (max-width: 768px) {
+    .create-listing-container .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* --- Pagination Styles --- */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.pagination-page-info {
+    color: #ccc;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+}
+
+/* ========================================================== */
+/* ===         START: LIVE BIDDING DETAILS PAGE STYLES    === */
+/* ========================================================== */
+
+/* --- Live Bidding Details Page Styles --- */
+.live-bidding-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    color: #f0f0f0;
+}
+
+.page-title {
+    font-family: 'Playfair Display', serif;
+    color: #D4AF37;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.bidding-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+    gap: 40px;
+    border: 2px solid #1a1a1a; /* Blue border like image */
+    padding: 30px;
+    background-color: #1E1E1E; /* Inner background */
+    border-radius: 8px; /* Slightly rounded corners */
+}
+
+/* Left Column */
+.coin-info-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.coin-image-main {
+    width: 100%;
+    margin-bottom: 25px;
+    border: 1px solid #333; /* Subtle border around image */
+    padding: 10px;
+    background-color: #2a2a2a;
+}
+
+    .coin-image-main img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+.coin-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #D4AF37;
+    margin-bottom: 20px;
+}
+
+.coin-details-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    font-size: 0.95rem;
+    color: #ccc;
+}
+
+    .coin-details-list li {
+        margin-bottom: 8px;
+        padding-left: 20px; /* Indent text */
+        position: relative;
+    }
+        /* Bullet points like the image */
+        .coin-details-list li::before {
+            content: '●'; /* Bullet character */
+            color: #D4AF37;
+            position: absolute;
+            left: 0;
+            font-size: 0.8em; /* Smaller bullet */
+        }
+
+.coin-description {
+    font-size: 0.95rem;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+    .coin-description strong {
+        color: #f0f0f0;
+    }
+
+
+/* Right Column */
+.bidding-panel-right {
+    background-color: #2a2a2a; /* Slightly different background for panel */
+    padding: 30px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.timer-display {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #ccc;
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 20px;
+}
+
+    .timer-display span {
+        color: #f0f0f0; /* Light color for the time itself */
+        font-weight: 700;
+        margin-left: 10px;
+    }
+
+.bid-history {
+    margin-bottom: 30px;
+    flex-grow: 1; /* Allow history to take up space */
+}
+
+    .bid-history h4 {
+        font-size: 1.1rem;
+        color: #D4AF37;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+    }
+
+.bid-history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px; /* Limit height and allow scroll if needed */
+    overflow-y: auto;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+    .bid-history-list li {
+        margin-bottom: 10px;
+        padding-left: 20px;
+        position: relative;
+    }
+        /* Small diamond bullet points like image */
+        .bid-history-list li::before {
+            content: '♦'; /* Diamond character */
+            color: #D4AF37;
+            position: absolute;
+            left: 0;
+            font-size: 0.7em;
+        }
+
+/* Bid Form */
+.bid-form-live .form-group {
+    margin-bottom: 15px;
+}
+
+.bid-form-live label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+/* Re-using styles from custom-auth.css */
+.bid-form-live .form-control-custom {
+    width: 100%;
+}
+
+.btn-submit-gold { /* New button style */
+    width: 100%;
+    padding: 12px;
+    background-color: #D4AF37; /* Gold */
+    border: none;
+    border-radius: 4px;
+    color: #1E1E1E; /* Dark text */
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+    .btn-submit-gold:hover {
+        background-color: #C09E31; /* Darker Gold */
+        color: #1E1E1E;
+    }
+
+/* Owner Actions (Live Bidding Page) */
+.owner-actions-live {
+    margin-top: 20px;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Comments section specific style */
+.details-comments {
+    border: 2px solid #1a1a1a; /* Match blue border */
+    padding: 30px;
+    background-color: #1E1E1E; /* Inner background */
+    border-radius: 8px;
+    margin-top: 40px; /* Space below bidding grid */
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .bidding-grid {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+    }
+
+    .bidding-panel-right {
+        margin-top: 30px; /* Add space when stacked */
+    }
+
+    .details-grid { /* Apply stacking to old details grid too */
+        grid-template-columns: 1fr;
+    }
+}

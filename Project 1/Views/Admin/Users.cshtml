@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<div class="container mt-5 text-light">
+    <h2 class="mt-4 mb-3 text-center" style="font-family: 'Playfair Display', serif; color: #D4AF37;">Manage Users</h2>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <table class="table table-dark table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>UserName</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                var roles = await UserManager.GetRolesAsync(user);
+                var isActive = user.LockoutEnd == null || user.LockoutEnd <= DateTimeOffset.Now;
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@string.Join(", ", roles)</td>
+                    <td>
+                        @if (isActive)
+                        {
+                            <span class="badge bg-success">Active</span>
+                        }
+                        else
+                        {
+
+                            <span class="badge bg-warning text-dark">Inactive</span>
+                        }
+                    </td>
+                    <td>
+                        @* Activate / Deactivate (Ensure forms point to AdminController) *@
+                        @if (isActive)
+                        {
+                            <form asp-controller="Admin" asp-action="Deactivate" method="post" style="display:inline">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <button type="submit" class="btn btn-sm btn-warning">Deactivate</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="Admin" asp-action="Activate" method="post" style="display:inline">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <button type="submit" class="btn btn-sm btn-success">Activate</button>
+                            </form>
+                        }
+
+                        @* Delete user (Ensure form points to AdminController) *@
+                        <form asp-controller="Admin" asp-action="DeleteUser" method="post" style="display:inline" onsubmit="return confirm('Are you sure you want to delete this user? This cannot be undone.');">
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

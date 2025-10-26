@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - NumisLive</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/custom-auth.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body style="background-color: #1a1a1a;">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2a2a2a; border-bottom: 1px solid #333; padding: 15px 20px;">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="font-family: 'Playfair Display', serif; color: #D4AF37; font-size: 24px; font-weight: 700;">
+                    NumisLive
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-weight: 500;">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" style="color: #f0f0f0;">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Listings" asp-action="Index" style="color: #f0f0f0;">AUCTIONS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Listings" asp-action="Browse" style="color: #f0f0f0;">BROWSE COINS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Aboutus" style="color: #f0f0f0;">ABOUT US</a>
+                        </li>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="Dashboard" style="color: #D4AF37; font-weight: bold;">ADMIN</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <form class="d-flex me-3" asp-controller="Listings" asp-action="Index" method="get" style="background-color: #3e3e3e; border-radius: 5px; overflow: hidden;">
+                        <input class="form-control" type="search" placeholder="Search coins..." name="searchString" style="border: none; background: transparent; color: #f0f0f0; min-width: 200px;" />
+                        <button class="btn" type="submit" style="background-color: #D4AF37; color: #1a1a1a; border-radius: 0 5px 5px 0;"><i class="fa fa-search"></i></button>
+                    </form>
+
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

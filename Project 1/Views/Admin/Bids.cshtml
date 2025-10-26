@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Project_1.Models.Bid>
+
+@{
+    ViewData["Title"] = "Manage Bids";
+}
+
+<div class="container mt-5 text-light">
+    <h2 class="mt-4 mb-3 text-center" style="font-family: 'Playfair Display', serif; color: #D4AF37;">Manage Bids</h2>
+
+    <table class="table table-dark table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Bid ID</th>
+                <th>Listing</th>
+                <th>User</th>
+                <th>Price</th>
+                <th>Created At</th>
+                <th>Approved</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bid in Model)
+            {
+                <tr>
+                    <td>@bid.Id</td>
+                    <td><a asp-controller="Listings" asp-action="Details" asp-route-id="@bid.ListingId" style="color:#D4AF37;">@(bid.Listing?.Title ?? "N/A")</a></td>
+                    <td>@(bid.User?.UserName ?? "N/A")</td>
+                    <td>@bid.Price.ToString("N2")</td>
+                    <td>@bid.CreatedAt.ToLocalTime().ToString("g")</td>
+                    <td>
+                        @if (bid.IsApproved)
+                        {
+                            <span class="badge bg-success">Approved</span>
+                        }
+                        else
+                        {
+
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!bid.IsApproved)
+                        {
+                            <form asp-controller="Admin" asp-action="ApproveBid" method="post" style="display:inline;">
+                                <input type="hidden" name="bidId" value="@bid.Id" />
+                                <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                            </form>
+                        }
+                        <form asp-controller="Listings" asp-action="DeleteBid" method="post" style="display:inline;" onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name="id" value="@bid.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

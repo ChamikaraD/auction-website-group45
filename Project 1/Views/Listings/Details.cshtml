@@ -1,0 +1,235 @@
+﻿@model Project_1.Models.Listing
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Auction Details"; // Changed title slightly
+    var highestBid = Model.Bids?.OrderByDescending(b => b.Price).FirstOrDefault();
+    var currentPrice = highestBid?.Price ?? Model.Price;
+    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    // Get bids for the history (ordered oldest first for display)
+    var bidHistory = Model.Bids?.OrderBy(b => b.Price).ToList() ?? new List<Bid>();
+}
+
+<link rel="stylesheet" href="~/css/custom-auth.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+
+
+<div class="live-bidding-container">
+    <h1 class="page-title">Live Bidding</h1>
+
+    <div class="bidding-grid">
+
+        <div class="coin-info-left">
+            <div class="coin-image-main">
+                <img src="~/Images/@Model.ImagePath" alt="@Model.Title" />
+            </div>
+            <h2 class="coin-title">@Model.Title</h2>
+            <ul class="coin-details-list">
+                @if (!string.IsNullOrEmpty(Model.Composition))
+                {
+                    <li><strong>Material:</strong> @Model.Composition</li>
+                }
+                <li><strong>Year:</strong> @Model.Year</li>
+                <li><strong>Country:</strong> @Model.Country</li>
+                <li><strong>Denomination:</strong> @Model.Denomination</li>
+                <li><strong>Grade:</strong> @Model.Grade</li>
+                @if (!string.IsNullOrEmpty(Model.MintMark))
+                {
+                    <li><strong>Mint Mark:</strong> @Model.MintMark</li>
+                }
+            </ul>
+            <p class="coin-description"><strong>Description:</strong> @Model.Description</p>
+        </div>
+
+        <div class="bidding-panel-right">
+            <div class="timer-display">
+                ENDS IN <span id="timer-@Model.Id" data-closing-time="@Model.ClosingTime.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")">
+                    @(Model.IsSold ? "CLOSED" : "Loading...")
+                </span>
+            </div>
+
+            <div class="bid-history">
+                <h4>Bidding Activity</h4>
+                <ul class="bid-history-list">
+                    @if (bidHistory.Any())
+                    {
+                        foreach (var bid in bidHistory)
+                        {
+                            <li>
+                                <span>Rs @bid.Price.ToString("N2")</span> - @bid.User?.UserName @* Assuming User is loaded *@
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li>Starting Bid: Rs @Model.Price.ToString("N2")</li>
+                        <li>No competing bids yet.</li>
+                    }
+                </ul>
+            </div>
+
+            @if (Model.IsSold)
+            {
+                <div class="bid-closed-message">
+                    <strong>Auction Closed.</strong>
+                    @if (highestBid != null)
+                    {
+                        <span>Won by @highestBid.User?.UserName with Rs @highestBid.Price.ToString("N2")</span>
+                    }
+                    else
+                    {
+                        <span>This item was not sold.</span>
+                    }
+                </div>
+            }
+            else if (User.Identity.IsAuthenticated && currentUserId != Model.IdentityUserId)
+            {
+                <form asp-controller="Listings" asp-action="AddBid" method="post" class="bid-form-live">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+                    <input type="hidden" name="ListingId" value="@Model.Id" />
+                    <input type="hidden" name="IdentityUserId" value="@currentUserId" />
+
+                    <div class="form-group">
+                        <label for="bidAmount">Your Bid (Must be > Rs @currentPrice.ToString("N2"))</label>
+                        <input type="number" name="Price" id="bidAmount" class="form-control-custom" step="0.01" min="@(currentPrice + 0.01m)" placeholder="Enter your bid amount" required />
+                        <span asp-validation-for="@(new Bid().Price)" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn-submit-gold">PLACE BID</button>
+                </form>
+            }
+            else if (currentUserId == Model.IdentityUserId)
+            {
+                <div class="owner-message">You are the seller of this item.</div>
+                <div class="owner-actions-live">
+                    <form asp-controller="Listings" asp-action="CloseBidding" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn-close-bid">Close Bidding Now</button>
+                    </form>
+                    <form asp-controller="Listings" asp-action="DeleteListing" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn-delete-bid">Delete Listing</button>
+                    </form>
+                </div>
+            }
+            else // Not logged in
+            {
+                <a href="/Identity/Account/Login" class="btn-submit-gold">LOGIN TO PLACE BID</a>
+            }
+        </div>
+    </div>
+
+    <div class="comments-section details-comments">
+        <h3>Comments</h3>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <form asp-controller="Listings" asp-action="AddComment" method="post" class="comment-form">
+                <input type="hidden" name="ListingId" value="@Model.Id" />
+                <input type="hidden" name="IdentityUserId" value="@currentUserId" />
+                <div class="form-group">
+                    <textarea name="Content" class="form-control-custom" rows="3" placeholder="Add a public comment..."></textarea>
+                </div>
+                <button type="submit" class="btn-secondary-gold">Submit Comment</button>
+            </form>
+        }
+        else
+        {
+            <p><a href="/Identity/Account/Login" style="color:#D4AF37;">Login to leave a comment.</a></p>
+        }
+
+        <div class="comment-list">
+            @if (Model.Comments != null && Model.Comments.Any())
+            {
+                @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt)) // Order by CreatedAt
+                {
+                    <div class="comment-item">
+                        <strong>@comment.User?.UserName</strong> <small>@comment.CreatedAt.ToString("g")</small>
+                        <p>@comment.Content</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No comments yet.</p>
+            }
+        </div>
+    </div>
+
+</div>
+
+<footer class="site-footer">
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h3>NumisLive</h3>
+            <p>Where History Meets Value.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Buyer & Seller Resources</h4>
+            <ul>
+                <li><a href="#">Help & FAQs</a></li>
+                <li><a href="#">Fees & Policies</a></li>
+            </ul>
+        </div>
+        <div class="footer-connect">
+            <h4>Stay Connected</h4>
+            <div class="subscribe-form">
+                <input type="email" placeholder="Email" />
+                <button type="submit" class="btn-subscribe">SUBSCRIBE</button>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright © 2025 NumisLive. All rights reserved.</p>
+    </div>
+</footer>
+@section Scripts {
+    <script>
+        document.querySelectorAll("[id^='timer-']").forEach(timer => {
+            const closingTime = new Date(timer.dataset.closingTime);
+
+            function updateTimer() {
+                const now = new Date();
+                const diff = closingTime - now;
+
+                if (diff <= 0) {
+                    timer.textContent = "CLOSED";
+                    timer.style.color = "#D4AF37";
+                    // Optionally disable bid button here if needed
+                    // const bidButton = document.querySelector('.bid-form-live button[type="submit"]');
+                    // if (bidButton) bidButton.disabled = true;
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                let timeString = "";
+                if (days > 0) timeString += `${days}d `;
+                timeString += `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+                timer.textContent = timeString;
+                timer.style.color = "#f0f0f0";
+            }
+
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        });
+    </script>
+}

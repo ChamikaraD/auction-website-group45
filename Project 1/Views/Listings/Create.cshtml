@@ -1,0 +1,97 @@
+﻿@model Project_1.Models.ListingVM
+@{
+    ViewData["Title"] = "Create Listing";
+}
+
+<div class.create-listing-container">
+    <div class="auth-form-panel" style="margin: 5vh auto; max-width: 800px;">
+        <div class="form-content">
+            <div class="form-header">
+                <h2>Create New Coin Auction</h2>
+                <p>Add your coin details to start the auction.</p>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                <div class.form-grid">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label asp-for="CoinName" class="form-check-label-custom"></label>
+                            <input asp-for="CoinName" class="form-control-custom" placeholder="e.g., American Silver Eagle" />
+                            <span asp-validation-for="CoinName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Year" class="form-check-label-custom"></label>
+                            <input asp-for="Year" type="number" class="form-control-custom" placeholder="e.g., 1986" />
+                            <span asp-validation-for="Year" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Country" class="form-check-label-custom"></label>
+                            <input asp-for="Country" class="form-control-custom" placeholder="e.g., USA" />
+                            <span asp-validation-for="Country" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Denomination" class="form-check-label-custom"></label>
+                            <input asp-for="Denomination" class="form-control-custom" placeholder="e.g., $1" />
+                            <span asp-validation-for="Denomination" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label asp-for="Grade" class="form-check-label-custom"></label>
+                            <input asp-for="Grade" class="form-control-custom" placeholder="e.g., MS-70" />
+                            <span asp-validation-for="Grade" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="MintMark" class="form-check-label-custom"></label>
+                            <input asp-for="MintMark" class="form-control-custom" placeholder="e.g., S (San Francisco)" />
+                            <span asp-validation-for="MintMark" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Composition" class="form-check-label-custom"></label>
+                            <input asp-for="Composition" class="form-control-custom" placeholder="e.g., 90% Silver" />
+                            <span asp-validation-for="Composition" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="StartingPrice" class="form-check-label-custom"></label>
+                            <input asp-for="StartingPrice" class="form-control-custom" placeholder="0.00" />
+                            <span asp-validation-for="StartingPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class.form-group">
+                    <label asp-for="Description" class="form-check-label-custom"></label>
+                    <textarea asp-for="Description" class="form-control-custom" rows="4" placeholder="Add details about the coin's history, condition, etc."></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ImageFile" class="form-check-label-custom"></label>
+                    <input asp-for="ImageFile" class="form-control-custom" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-check-label-custom">Auction Duration</label>
+                    <div class="duration-inputs">
+                        <input asp-for="DurationDays" type="number" class="form-control-custom" placeholder="Days" />
+                        <input asp-for="DurationHours" type="number" class="form-control-custom" placeholder="Hours" />
+                    </div>
+                    <span asp-validation-for="DurationDays" class="text-danger"></span>
+                    <span asp-validation-for="DurationHours" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn-submit">Create Listing</button>
+            </form>
+        </div>
+    </div>
+</div>

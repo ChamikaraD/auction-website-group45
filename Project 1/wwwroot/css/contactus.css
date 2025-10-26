@@ -1,0 +1,117 @@
+﻿/* --- Contact Us Page Styles --- */
+
+.contact-us-container {
+    color: #f0f0f0;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.contact-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+    .contact-header .page-title {
+        font-family: 'Playfair Display', serif;
+        color: #D4AF37;
+        font-size: 3rem;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    .contact-header p {
+        font-size: 1.2rem;
+        color: #ccc;
+    }
+
+/* Grid Layout */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Info smaller than form */
+    gap: 50px;
+    background-color: #1E1E1E; /* Dark background for the grid area */
+    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    color: #D4AF37;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #444;
+}
+
+/* Contact Info (Left) */
+.contact-info p {
+    color: #ccc;
+    margin-bottom: 30px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start; /* Align icon top */
+    gap: 15px;
+    margin-bottom: 25px;
+    color: #ccc;
+}
+
+    .info-item i {
+        color: #D4AF37;
+        font-size: 1.5rem;
+        margin-top: 5px; /* Align icon slightly lower */
+        width: 25px; /* Ensure consistent alignment */
+        text-align: center;
+    }
+
+    .info-item strong {
+        color: #f0f0f0;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .info-item a {
+        color: #D4AF37;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+        .info-item a:hover {
+            color: #C09E31; /* Darker Gold */
+        }
+
+
+/* Contact Form (Right) - Reuses styles from custom-auth.css */
+.contact-form-panel .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form-panel label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #ccc;
+}
+
+/* Uses .form-control-custom from custom-auth.css */
+.contact-form-panel textarea.form-control-custom {
+    min-height: 120px;
+}
+
+/* Uses .btn-submit-gold from home.css (Live Bidding section) */
+
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .contact-grid {
+        grid-template-columns: 1fr; /* Stack columns */
+    }
+
+    .contact-info {
+        margin-bottom: 40px;
+    }
+}

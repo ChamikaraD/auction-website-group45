@@ -1,0 +1,107 @@
+﻿@model Project_1.Models.Listing
+
+@{
+    ViewData["Title"] = "Edit Listing";
+}
+
+<link rel="stylesheet" href="~/css/custom-auth.css" asp-append-version="true" />
+
+<div class.create-listing-container">
+    <div class="auth-form-panel" style="margin: 5vh auto; max-width: 800px;">
+        <div class="form-content">
+            <div class="form-header">
+                <h2>Edit Auction</h2>
+                <p>Update your coin's details.</p>
+            </div>
+
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ImagePath" /> <input type="hidden" asp-for="IdentityUserId" />
+
+                <div class.form-grid">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label asp-for="Title" class="form-check-label-custom">Coin Name</label> 
+                            <input asp-for="Title" class="form-control-custom" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Year" class="form-check-label-custom"></label>
+                            <input asp-for="Year" type="number" class="form-control-custom" />
+                            <span asp-validation-for="Year" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Country" class="form-check-label-custom"></label>
+                            <input asp-for="Country" class="form-control-custom" />
+                            <span asp-validation-for="Country" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Denomination" class="form-check-label-custom"></label>
+                            <input asp-for="Denomination" class="form-control-custom" />
+                            <span asp-validation-for="Denomination" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label asp-for="Grade" class="form-check-label-custom"></label>
+                            <input asp-for="Grade" class="form-control-custom" />
+                            <span asp-validation-for="Grade" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="MintMark" class="form-check-label-custom"></label>
+                            <input asp-for="MintMark" class="form-control-custom" />
+                            <span asp-validation-for="MintMark" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Composition" class="form-check-label-custom"></label>
+                            <input asp-for="Composition" class="form-control-custom" />
+                            <span asp-validation-for="Composition" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Price" class="form-check-label-custom">Starting Price</label> 
+                            <input asp-for="Price" class="form-control-custom" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class.form-group">
+                    <label asp-for="Description" class="form-check-label-custom"></label> 
+                    <textarea asp-for="Description" class="form-control-custom" rows="4"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-check-label-custom">Upload New Image (Optional)</label>
+                    <input name="ImageFile" type="file" class="form-control-custom" />
+                    <small>Leave blank to keep the current image: @Model.ImagePath</small> 
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input class="form-check-input-custom" asp-for="IsSold" /> 
+                    <label class="form-check-label-custom" asp-for="IsSold">Is this item sold?</label>
+                </div>
+
+                <button type="submit" class="btn-submit">Save Changes</button>
+            </form>
+
+            <div style="margin-top: 20px;">
+                <a asp-action="Index" style="color: #ccc;">Back to List</a> 
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
